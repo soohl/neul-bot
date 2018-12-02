@@ -42,7 +42,8 @@ def receive_message(event):
     sender_id = event["sender"]["id"]
     message = event["message"]
     message_text = message["text"]
-    send_message(sender_id, message_text)
+    #send_message(sender_id, message_text)
+    send_initial_message(sender_id)
 
 def receive_postback(event):
     sender_id = event["sender"]["id"]
@@ -50,7 +51,7 @@ def receive_postback(event):
     if payload == "greeting": # Initial greeting postback
         send_initial_message(sender_id)
     else:
-        send_message(sender_id,"Unexpected")
+        send_message(sender_id,"?")
     
 # Send back the message.
 def send_message(recipient_id, message_text):
@@ -61,7 +62,7 @@ def send_message(recipient_id, message_text):
     send_api(message_data)
 
 def send_initial_message(recipient_id):
-    send_message(recipient_id, "안녕하세요. 늘봇입니다. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다.")
+    send_message(recipient_id, "🚧 안녕하세요. 늘봇입니다. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
     #send_quick_reply(recipient_id, 0, "안녕하세요. 늘봇입니다.")
 
 def send_quick_reply(recipient_id, level, greeting):
