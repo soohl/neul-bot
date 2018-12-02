@@ -61,8 +61,8 @@ def send_message(recipient_id, message_text):
     send_api(message_data)
 
 def send_initial_message(recipient_id):
-    send_quick_reply(recipient_id, 0, "안녕하세요. 늘봇입니다.")
-
+    send_message(recipient_id, "안녕하세요. 늘봇입니다. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다.")
+    #send_quick_reply(recipient_id, 0, "안녕하세요. 늘봇입니다.")
 
 def send_quick_reply(recipient_id, level, greeting):
     level_dic = {
