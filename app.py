@@ -4,7 +4,7 @@ import json
 import requests
 from flask import Flask, request, render_template
 
-app = Flask(__name__) 
+app = Flask(__name__, static_folder=os.path.join(os.getcwd(),'main','static'))
 
 @app.route('/', methods = ['GET'])
 def verification():
@@ -18,7 +18,6 @@ def verification():
 def privacy_policy():
     return render_template('privacy.html')
 
-
 # All callbacks to the messenger will be POSTED to here. 
 @app.route('/', methods = ['POST'])
 def webhook():
@@ -27,12 +26,14 @@ def webhook():
         for entry in data["entry"]:
             for event in entry["messaging"]:
                 process_message(event)
-        
     return "received", 200
 
 def process_message(event):
     if event.get("message"):
-        receive_message(event)
+        if event['message'].get('quick_reply'):
+            receive_quick_reply(event)
+        else:
+            receive_message(event)
     elif event.get("postback"):
         receive_postback(event)
     else:
@@ -52,7 +53,16 @@ def receive_postback(event):
         send_initial_message(sender_id)
     else:
         send_message(sender_id,"?")
-    
+
+def receive_quick_reply(event):
+    sender_id = event["sender"]["id"]
+    payload = event["message"]['quick_reply']["payload"]
+    if (payload == "meal"):
+        send_message(sender_id,"🚧 식단. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
+    else:
+        send_message(sender_id,"🚧 지원. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
+
+
 # Send back the message.
 def send_message(recipient_id, message_text):
     message_data = json.dumps({
@@ -62,12 +72,12 @@ def send_message(recipient_id, message_text):
     send_api(message_data)
 
 def send_initial_message(recipient_id):
-    send_message(recipient_id, "🚧 안녕하세요. 늘봇입니다. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
-    #send_quick_reply(recipient_id, 0, "안녕하세요. 늘봇입니다.")
+    #send_message(recipient_id, "🚧 안녕하세요. 늘봇입니다. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
+    send_quick_reply(recipient_id, 0, "안녕하세요. 늘봇입니다.")
 
 def send_quick_reply(recipient_id, level, greeting):
     level_dic = {
-        0 : [["📡통신", "com"], ["⏱지원", "inquiry"]]
+        0 : [["🍴식단", "meal"], ["📡지원", "help"]]
     }
     message_data = {
         "recipient" : {"id" : recipient_id},
