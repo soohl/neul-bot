@@ -44,13 +44,13 @@ def receive_message(event):
     message = event["message"]
     message_text = message["text"]
     #send_message(sender_id, message_text)
-    send_initial_message(sender_id, "🚧 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다.🚧")
+    send_initial_message(sender_id, "🚧 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
 
 def receive_postback(event):
     sender_id = event["sender"]["id"]
     payload = event["postback"]["payload"]
     if payload == "greeting": # Initial greeting postback
-        send_initial_message(sender_id, "?")
+        send_initial_message(sender_id, "🚧 안녕. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
     else:
         send_message(sender_id,"?")
 
