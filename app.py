@@ -77,22 +77,17 @@ def receive_quick_reply(event):
     if (payload == "meal"):
         send_quick_reply(sender_id, 1, "식단")
     elif (payload == "breakfast"):
-        message_text = ""
-        for menu in meal.return_today_menu(payload):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
+        send_quick_reply(sender_id, 2, "아침")
     elif (payload == "lunch"):
-        message_text = ""
-        for menu in meal.return_today_menu(payload):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
+        send_quick_reply(sender_id, 3, "점심")
     elif (payload == "dinner"):
-        message_text = ""
-        for menu in meal.return_today_menu(payload):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
+        send_quick_reply(sender_id, 4, "저녁")
     else:
         send_initial_message(sender_id, "🚧 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
+
+# message_text = ""
+#         for menu in meal.return_today_menu(payload):
+#             message_text += (str(menu)+'\u000A') 
 
 # Send back the message.
 def send_message(recipient_id, message_text):
@@ -108,7 +103,10 @@ def send_initial_message(recipient_id, greeting):
 def send_quick_reply(recipient_id, level, greeting):
     level_dic = {
         0 : [["🍴식단", "meal"], ["📡지원", "help"]],
-        1 : [["🍴아침", "breakfast"], ["🍴점심", "lunch"], ["🍴저녁", "dinner"]]
+        1 : [["🍴아침", "breakfast"], ["🍴점심", "lunch"], ["🍴저녁", "dinner"]],
+        2 : [["🍴메인", "breakfast_main"], ["🍴샐러드", "breakfast_salad"], ["🍴스낵", "breakfast_snack"]],
+        3 : [["🍴메인", "lunch_main"], ["🍴샐러드", "lunch_salad"], ["🍴스낵", "lunch_snack"]],
+        4 : [["🍴메인", "dinner_main"], ["🍴샐러드", "dinner_salad"]]
     }
     message_data = {
         "recipient" : {"id" : recipient_id},
