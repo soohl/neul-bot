@@ -386,7 +386,7 @@ def today_day():
 
 def return_breakfast():
     today_menu = []
-    with open(os.path.join('static', 'breakfast.json'), 'r') as f:
+    with open(os.path.join(os.getcwd(),'static', 'breakfast.json'), 'r') as f:
         menu = json.load(f)
     for day_menu in menu[today_day()]:
         for single_menu in day_menu:
