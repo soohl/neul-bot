@@ -109,8 +109,26 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
         }
     }
     if len(menu_list[menu_type]) < 2:
-        message_data['message']['attachment']['payload']['template_type'] = "generic"
-        del message_data['message']['attachment']['payload']['top_element_style']
+        message_data = {
+        "recipient" : {"id" : recipient_id},
+        "message" : { 
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "sharable": "true",
+                    "elements": [{
+                        "buttons": [{
+                        "title": "돌아갈래",
+                        "type": "postback",
+                        "payload": meal_type_
+                            }]
+                    }]
+                }
+            }
+        }
+        }
 
     for meal_type in menu_list[menu_type]:
         element = {"title": "", "subtitle": ""}
