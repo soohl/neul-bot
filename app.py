@@ -98,8 +98,7 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
                     "template_type": "list",
                     "top_element_style": "compact",
                     "sharable": "true",
-                    "elements": [
-                    ],
+                    "elements": [],
                     "buttons": [{
                         "title": "돌아갈래",
                         "type": "postback",
@@ -109,6 +108,10 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
             }
         }
     }
+    if len(menu_list[menu_type]) < 2:
+        message_data['message']['attachment']['payload']['template_type'] = "generic"
+        del message_data['message']['attachment']['payload']['top_element_style']
+
     for meal_type in menu_list[menu_type]:
         element = {"title": "", "subtitle": ""}
         element['title'] += meal_type
