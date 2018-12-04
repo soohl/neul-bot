@@ -78,13 +78,19 @@ def receive_quick_reply(event):
         send_quick_reply(sender_id, 1, "식단")
     elif (payload == "breakfast"):
         message_text = ""
-        for menu in meal.return_breakfast():
+        for menu in meal.return_today_menu(payload):
             message_text += (str(menu)+'\u000A') 
         send_message(sender_id, message_text)
     elif (payload == "lunch"):
-        pass
+        message_text = ""
+        for menu in meal.return_today_menu(payload):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
     elif (payload == "dinner"):
-        pass
+        message_text = ""
+        for menu in meal.return_today_menu(payload):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
     else:
         send_initial_message(sender_id, "🚧 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
 

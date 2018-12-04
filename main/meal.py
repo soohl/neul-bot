@@ -384,15 +384,15 @@ def today_day():
     }
     return week_day[date.weekday()]
 
-def return_breakfast():
+def return_today_menu(meal_type):
     today_menu = []
-    with open(os.path.join(os.getcwd(),'main', 'static', 'breakfast.json'), 'r') as f:
+    with open(os.path.join(os.getcwd(), 'main', static', meal_type +'.json'), 'r') as f:
         menu = json.load(f)
     for day_menu in menu[today_day()]:
-        for single_menu in day_menu:
+        today_menu.append(day_menu)
+        for single_menu in menu[today_day()][day_menu]:
             today_menu.append(single_menu)
     return today_menu
-
 
 if __name__ == '__main__':
     pass
