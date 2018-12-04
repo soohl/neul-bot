@@ -134,6 +134,7 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
         for food in menu_list[menu_type][meal_type]:
             element['subtitle'] += food+" "
         message_data['message']['attachment']['payload']['elements'].append(element)
+    log(message_data)
     return message_data
 
 # Send back the message.
