@@ -161,10 +161,10 @@ def send_initial_message(recipient_id, greeting):
 def send_quick_reply(recipient_id, level, greeting):
     level_dic = {
         0 : [["🍴식단", "meal"], ["📡지원", "help"]],
-        1 : [["🍴아침", "breakfast"], ["🍴점심", "lunch"], ["🍴저녁", "dinner"]],
-        2 : [["🍴메인", "breakfast_main"], ["🍴샐러드", "breakfast_salad"], ["🍴스낵", "breakfast_snack"]],
-        3 : [["🍴메인", "lunch_main"], ["🍴샐러드", "lunch_salad"], ["🍴스낵", "lunch_snack"]],
-        4 : [["🍴메인", "dinner_main"], ["🍴샐러드", "dinner_salad"]]
+        1 : [["🍳아침", "breakfast"], ["🍱점심", "lunch"], ["🥘저녁", "dinner"]],
+        2 : [["🍲메인", "breakfast_main"], ["🥗샐러드", "breakfast_salad"], ["🌮스낵", "breakfast_snack"], ["돌아갈래", "meal"]],
+        3 : [["🍲메인", "lunch_main"], ["🥗샐러드", "lunch_salad"], ["🌮스낵", "lunch_snack"], ["돌아갈래", "meal"]],
+        4 : [["🍲메인", "dinner_main"], ["🥗샐러드", "dinner_salad"], ["돌아갈래", "meal"]]
     }
     message_data = {
         "recipient" : {"id" : recipient_id},
