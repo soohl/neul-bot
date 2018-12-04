@@ -67,15 +67,15 @@ def receive_postback(event):
     sender_id = event["sender"]["id"]
     payload = event["postback"]["payload"]
     if (payload == "greeting"): # Initial greeting postback
-        send_initial_message(sender_id, "🚧 안녕. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
+        send_initial_message(sender_id, "🚧 안녕하세요. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
     if (payload == "meal"):
-        send_quick_reply(sender_id, 1, "식단")
+        send_quick_reply(sender_id, 1, "식단을 불러오는 중!")
     elif (payload == "breakfast"):
-        send_quick_reply(sender_id, 2, "아침")
+        send_quick_reply(sender_id, 2, "오늘 아침 메뉴는...")
     elif (payload == "lunch"):
-        send_quick_reply(sender_id, 3, "점심")
+        send_quick_reply(sender_id, 3, "오늘 점심 메뉴는...")
     elif (payload == "dinner"):
-        send_quick_reply(sender_id, 4, "저녁")
+        send_quick_reply(sender_id, 4, "오늘 저녁 메뉴는...")
     else:
         send_message(sender_id,"?")
 
@@ -83,13 +83,14 @@ def receive_quick_reply(event):
     sender_id = event["sender"]["id"]
     payload = event["message"]['quick_reply']["payload"]
     if (payload == "meal"):
-        send_quick_reply(sender_id, 1, "식단")
+        send_quick_reply(sender_id, 1, "식단을 불러오는 중!")
     elif (payload == "breakfast"):
-        send_quick_reply(sender_id, 2, "아침")
+        send_message(sender_id,"오늘은 "+today_day()+"요일!")
+        send_quick_reply(sender_id, 2, "오늘 아침 메뉴는...")
     elif (payload == "lunch"):
-        send_quick_reply(sender_id, 3, "점심")
+        send_quick_reply(sender_id, 3, "오늘 점심 메뉴는...")
     elif (payload == "dinner"):
-        send_quick_reply(sender_id, 4, "저녁")
+        send_quick_reply(sender_id, 4, "오늘 저녁 메뉴는...")
     else: # Meal specific
         meal_type = payload.split('_')
         message_data = build_meal_template(sender_id, meal.return_today_menu(meal_type[0]), meal_type[1], meal_type[0])
@@ -105,7 +106,7 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
                 "payload": {
                     "template_type": "list",
                     "top_element_style": "compact",
-                    "sharable": "true",
+                    "sharable": True,
                     "elements": [],
                     "buttons": [{
                         "title": "돌아갈래",
@@ -123,7 +124,8 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
             "attachment": {
                 "type": "template",
                 "payload": {
-                    "template_type": "generic",                    "sharable": "true",
+                    "template_type": "generic",                   
+                    "sharable": True,
                     "elements": []
                 }
             }
@@ -194,6 +196,19 @@ def send_api(message_data):
 def log(msg, *args, **kwargs):
     print(msg)
     sys.stdout.flush()
+
+def today_day():
+    date = datetime.datetime.today()
+    week_day = {
+        0 : "월",
+        1 : "화",
+        2 : "수", 
+        3 : "목",
+        4 : "금",
+        5 : "토", 
+        6 : "일"
+    }
+    return week_day[date.weekday()]
 
 if __name__ == '__main__':
     app.run(debug=True)
