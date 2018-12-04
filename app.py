@@ -88,8 +88,10 @@ def receive_quick_reply(event):
         send_message(sender_id,"오늘은 "+today_day()+"요일!")
         send_quick_reply(sender_id, 2, "오늘 아침 메뉴는...")
     elif (payload == "lunch"):
+        send_message(sender_id,"오늘은 "+today_day()+"요일!")
         send_quick_reply(sender_id, 3, "오늘 점심 메뉴는...")
     elif (payload == "dinner"):
+        send_message(sender_id,"오늘은 "+today_day()+"요일!")
         send_quick_reply(sender_id, 4, "오늘 저녁 메뉴는...")
     else: # Meal specific
         meal_type = payload.split('_')
