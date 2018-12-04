@@ -363,11 +363,11 @@ def dinner():
     return menus
 
 def write_json():
-    with open(os.path.join('./static', 'breakfast.json'), 'w') as outfile:
+    with open(os.path.join('static', 'breakfast.json'), 'w') as outfile:
         json.dump(breakfast(), outfile, indent=4, ensure_ascii=False)
-    with open(os.path.join('./static', 'lunch.json'), 'w') as outfile:
+    with open(os.path.join('static', 'lunch.json'), 'w') as outfile:
         json.dump(lunch(), outfile, indent=4, nsure_ascii=False)
-    with open(os.path.join('./static', 'dinner.json'), 'w') as outfile:
+    with open(os.path.join('static', 'dinner.json'), 'w') as outfile:
         json.dump(dinner(), outfile, indent=4, ensure_ascii=False)
     return True
 
@@ -386,7 +386,7 @@ def today_day():
 
 def return_breakfast():
     today_menu = []
-    with open(os.path.join('./static', 'breakfast.json'), 'r') as f:
+    with open(os.path.join('static', 'breakfast.json'), 'r') as f:
         menu = json.load(f)
     for day_menu in menu[today_day()]:
         for single_menu in day_menu:
