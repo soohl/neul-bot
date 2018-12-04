@@ -82,12 +82,52 @@ def receive_quick_reply(event):
         send_quick_reply(sender_id, 3, "점심")
     elif (payload == "dinner"):
         send_quick_reply(sender_id, 4, "저녁")
+
+    elif (payload == "breakfast_main"):
+        message_text = ""
+        for menu in meal.return_today_menu("breakfast"):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
+    elif (payload == "breakfast_salad"):
+        message_text = ""
+        for menu in meal.return_today_menu("breakfast"):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
+    elif (payload == "breakfast_snack"):
+        message_text = ""
+        for menu in meal.return_today_menu("breakfast"):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
+        
+    elif (payload == "lunch_main"):
+        message_text = ""
+        for menu in meal.return_today_menu("lunch"):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
+    elif (payload == "lunch_salad"):
+        message_text = ""
+        for menu in meal.return_today_menu("lunch"):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
+    elif (payload == "lunch_snack"):
+        message_text = ""
+        for menu in meal.return_today_menu("lunch"):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
+
+    elif (payload == "dinner_main"):
+        message_text = ""
+        for menu in meal.return_today_menu("dinner"):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
+    elif (payload == "dinner_salad"):
+        message_text = ""
+        for menu in meal.return_today_menu("dinner"):
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
+
     else:
         send_initial_message(sender_id, "🚧 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
-
-# message_text = ""
-#         for menu in meal.return_today_menu(payload):
-#             message_text += (str(menu)+'\u000A') 
 
 # Send back the message.
 def send_message(recipient_id, message_text):
