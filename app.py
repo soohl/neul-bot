@@ -115,21 +115,17 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
             "attachment": {
                 "type": "template",
                 "payload": {
-                    "template_type": "list",
-                    "top_element_style": "compact",
-                    "sharable": "true",
+                    "template_type": "generic",                    "sharable": "true",
                     "elements": [{
                         "buttons": [{
                         "title": "돌아갈래",
                         "type": "postback",
                         "payload": meal_type_
-                            }]
+                        }]
                     }]
                 }
             }
-        }
-        }
-
+        }}
     for meal_type in menu_list[menu_type]:
         element = {"title": "", "subtitle": ""}
         element['title'] += meal_type
