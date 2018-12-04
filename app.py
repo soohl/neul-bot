@@ -94,10 +94,10 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
         "message" : { 
             "attachment": {
                 "type": "template",
-                "sharable":"true",
                 "payload": {
                     "template_type": "list",
                     "top_element_style": "compact",
+                    "sharable": "true",
                     "elements": [
                     ],
                     "buttons": [{
@@ -118,7 +118,7 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
             element['subtitle'] += food+" "
         message_data['message']['attachment']['payload']['elements'].append(element)
     return message_data
-    
+
 # Send back the message.
 def send_message(recipient_id, message_text):
     message_data = json.dumps({
