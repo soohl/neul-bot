@@ -89,7 +89,7 @@ def receive_quick_reply(event):
     if (payload == "meal"):
         send_quick_reply(sender_id, 1, "식단을 불러오는 중!")
     elif (payload == "help"):
-        send_message(sender_id, "건의 사항 메시지 앞에 #를 붙히고 내게 보내줘.")
+        send_message(sender_id, "건의사항을 담은 메시지 앞에 #를 붙히고 내게 보내줘. 모든 건의사항은 익명으로 전달될거야.")
     elif (payload == "breakfast"):
         send_message(sender_id,"오늘은 "+today_day()+"요일!")
         send_quick_reply(sender_id, 2, "오늘 아침 메뉴는...")
