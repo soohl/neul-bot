@@ -66,8 +66,16 @@ def receive_message(event):
 def receive_postback(event):
     sender_id = event["sender"]["id"]
     payload = event["postback"]["payload"]
-    if payload == "greeting": # Initial greeting postback
+    if (payload == "greeting"): # Initial greeting postback
         send_initial_message(sender_id, "🚧 안녕. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
+    if (payload == "meal"):
+        send_quick_reply(sender_id, 1, "식단")
+    elif (payload == "breakfast"):
+        send_quick_reply(sender_id, 2, "아침")
+    elif (payload == "lunch"):
+        send_quick_reply(sender_id, 3, "점심")
+    elif (payload == "dinner"):
+        send_quick_reply(sender_id, 4, "저녁")
     else:
         send_message(sender_id,"?")
 
