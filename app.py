@@ -1,8 +1,12 @@
-import os
+import sys, os
+sys.path.append('/main')
 import sys
 import json
 import requests
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
+import datetime
+import main.meal as meal
+
 
 app = Flask(__name__, static_folder=os.path.join(os.getcwd(),'main','static'))
 
@@ -18,7 +22,20 @@ def verification():
 def privacy_policy():
     return render_template('privacy.html')
 
+@app.route('/meal/breakfast', methods = ['GET'])
+def breakfast():
+    return send_from_directory(os.path.join('main','static'), 'breakfast.json')
+
+@app.route('/meal/lunch', methods = ['GET'])
+def lunch():
+    return send_from_directory(os.path.join('main','static'), 'lunch.json')
+
+@app.route('/meal/dinner', methods = ['GET'])
+def dinner():
+    return send_from_directory(os.path.join('main','static'), 'dinner.json')
+
 # All callbacks to the messenger will be POSTED to here. 
+
 @app.route('/', methods = ['POST'])
 def webhook():
     data = request.get_json()
@@ -58,9 +75,18 @@ def receive_quick_reply(event):
     sender_id = event["sender"]["id"]
     payload = event["message"]['quick_reply']["payload"]
     if (payload == "meal"):
-        send_initial_message(sender_id, "🚧 식단. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
+        send_quick_reply(sender_id, 1, "식단")
+    elif (payload == "breakfast"):
+        message_text = ""
+        for menu in meal.return_breakfast():
+            message_text += (str(menu)+'\u000A') 
+        send_message(sender_id, message_text)
+    elif (payload == "lunch"):
+        pass
+    elif (payload == "dinner"):
+        pass
     else:
-        send_initial_message(sender_id, "🚧 지원. 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
+        send_initial_message(sender_id, "🚧 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
 
 # Send back the message.
 def send_message(recipient_id, message_text):
@@ -75,7 +101,8 @@ def send_initial_message(recipient_id, greeting):
 
 def send_quick_reply(recipient_id, level, greeting):
     level_dic = {
-        0 : [["🍴식단", "meal"], ["📡지원", "help"]]
+        0 : [["🍴식단", "meal"], ["📡지원", "help"]],
+        1 : [["🍴아침", "breakfast"], ["🍴점심", "lunch"], ["🍴저녁", "dinner"]]
     }
     message_data = {
         "recipient" : {"id" : recipient_id},
@@ -84,13 +111,12 @@ def send_quick_reply(recipient_id, level, greeting):
             "quick_replies" : []
         }
     }
-    for key,values in level_dic.items():
-        for value in values:
-            message_data["message"]["quick_replies"].append({
-                "content_type" : "text",
-                "title" : value[0],
-                "payload" : value[1]
-            })
+    for values in level_dic[level]:
+        message_data["message"]["quick_replies"].append({
+            "content_type" : "text",
+            "title" : values[0],
+            "payload" : values[1]
+        })
     message_json = json.dumps(message_data,ensure_ascii = False).encode("utf-8")
     send_api(message_json)
 

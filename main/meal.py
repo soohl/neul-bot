@@ -4,6 +4,7 @@ import json
 import re
 import math
 import os
+import datetime
 
 pdf_address = "https://www.nlcsjeju.co.kr/userfiles/nlcsjejumvc/NLCSjeju_menu_12%EC%9B%941%EC%A3%BC%EC%B0%A8.pdf"
 
@@ -363,13 +364,35 @@ def dinner():
 
 def write_json():
     with open(os.path.join('./static', 'breakfast.json'), 'w') as outfile:
-        json.dump(breakfast(), outfile, indent=4,ensure_ascii=False)
+        json.dump(breakfast(), outfile, indent=4, ensure_ascii=False)
     with open(os.path.join('./static', 'lunch.json'), 'w') as outfile:
-        json.dump(lunch(), outfile, indent=4,ensure_ascii=False)
+        json.dump(lunch(), outfile, indent=4, nsure_ascii=False)
     with open(os.path.join('./static', 'dinner.json'), 'w') as outfile:
-        json.dump(dinner(), outfile, indent=4,ensure_ascii=False)
-    
+        json.dump(dinner(), outfile, indent=4, ensure_ascii=False)
     return True
 
+def today_day():
+    date = datetime.datetime.today()
+    week_day = {
+        0 : "mon",
+        1 : "tue",
+        2 : "wed", 
+        3 : "thu",
+        4 : "fri",
+        5 : "sat", 
+        6 : "sun"
+    }
+    return week_day[date.weekday()]
+
+def return_breakfast():
+    today_menu = []
+    with open(os.path.join('static', 'breakfast.json')) as f:
+        menu = json.load(f)
+    for day_menu in menu[today_day()]:
+        for single_menu in day_menu:
+            today_menu.append(single_menu)
+    return today_menu
 
 
+if __name__ == '__main__':
+    pass
