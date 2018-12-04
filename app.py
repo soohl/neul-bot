@@ -84,7 +84,9 @@ def receive_quick_reply(event):
         send_quick_reply(sender_id, 4, "저녁")
     else: # Meal specific
         meal_type = payload.split('_')
-        send_api(build_meal_template(sender_id, meal.return_today_menu(meal_type[0]), meal_type[1], meal_type[0]))
+        message_data = build_meal_template(sender_id, meal.return_today_menu(meal_type[0]), meal_type[1], meal_type[0])
+        message_json = json.dumps(message_data,ensure_ascii = False).encode("utf-8")
+        send_api(message_json)
 
 def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
     message_data = {
@@ -116,8 +118,7 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
             element['subtitle'] += food+" "
         message_data['message']['attachment']['payload']['elements'].append(element)
     return message_data
-
-
+    
 # Send back the message.
 def send_message(recipient_id, message_text):
     message_data = json.dumps({
