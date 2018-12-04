@@ -82,52 +82,41 @@ def receive_quick_reply(event):
         send_quick_reply(sender_id, 3, "점심")
     elif (payload == "dinner"):
         send_quick_reply(sender_id, 4, "저녁")
+    else: # Meal specific
+        meal_type = payload.split('_')
+        send_api(build_meal_template(sender_id, meal.return_today_menu(meal_type[0]), meal_type[1], meal_type[0]))
 
-    elif (payload == "breakfast_main"):
-        message_text = ""
-        for menu in meal.return_today_menu("breakfast"):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
-    elif (payload == "breakfast_salad"):
-        message_text = ""
-        for menu in meal.return_today_menu("breakfast"):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
-    elif (payload == "breakfast_snack"):
-        message_text = ""
-        for menu in meal.return_today_menu("breakfast"):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
-        
-    elif (payload == "lunch_main"):
-        message_text = ""
-        for menu in meal.return_today_menu("lunch"):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
-    elif (payload == "lunch_salad"):
-        message_text = ""
-        for menu in meal.return_today_menu("lunch"):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
-    elif (payload == "lunch_snack"):
-        message_text = ""
-        for menu in meal.return_today_menu("lunch"):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
+def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
+    message_data = {
+        "recipient" : {"id" : recipient_id},
+        "message" : { 
+            "attachment": {
+                "type": "template",
+                "sharable":"true",
+                "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "elements": [
+                    ],
+                    "buttons": [{
+                        "title": "돌아갈래",
+                        "type": "postback",
+                        "payload": meal_type_
+                    }]
+                }
+            }
+        }
+    }
+    for meal_type in menu_list[menu_type]:
+        element = {"title": "", "subtitle": ""}
+        element['title'] += meal_type
+        if not (menu_list[menu_type][meal_type]):
+            element['subtitle'] += "제공되지 않음"
+        for food in menu_list[menu_type][meal_type]:
+            element['subtitle'] += food+" "
+        message_data['message']['attachment']['payload']['elements'].append(element)
+    return message_data
 
-    elif (payload == "dinner_main"):
-        message_text = ""
-        for menu in meal.return_today_menu("dinner"):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
-    elif (payload == "dinner_salad"):
-        message_text = ""
-        for menu in meal.return_today_menu("dinner"):
-            message_text += (str(menu)+'\u000A') 
-        send_message(sender_id, message_text)
-
-    else:
-        send_initial_message(sender_id, "🚧 현재 늘봇의 대규모 수정 및 재개발이 진행중입니다. 🚧")
 
 # Send back the message.
 def send_message(recipient_id, message_text):

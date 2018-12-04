@@ -384,14 +384,106 @@ def today_day():
     }
     return week_day[date.weekday()]
 
-def return_today_menu(meal_type):
-    today_menu = []
+def return_today_menu(meal_type): # meal_type = Breakfast, lunch, dinner
+    today_menu = {} # menu to be returned.
     with open(os.path.join(os.getcwd(), 'main', 'static', meal_type +'.json'), 'r') as f:
         menu = json.load(f)
-    for day_menu in menu[today_day()]:
-        today_menu.append(day_menu)
-        for single_menu in menu[today_day()][day_menu]:
-            today_menu.append(single_menu)
+        menu = menu[today_day()]
+
+    if meal_type == "breakfast":
+        today_menu = {
+            "main": {
+                "Green": []
+            },
+            "salad": {
+                "Special Salad": [],
+                "Normal Salad": []
+            },
+            "snack": {
+                "Morning Snack": [],
+                "Package Snack": []
+            }
+        }
+        for single_menu in menu:
+            if single_menu == "green":
+                for food in menu[single_menu]:
+                    today_menu['main']['Green'].append(food)
+            if single_menu == "salad1":
+                for food in menu[single_menu]:
+                    today_menu['salad']['Special Salad'].append(food)
+            if single_menu == "salad2":
+                today_menu['salad']['Normal Salad'] = menu[single_menu]
+            if single_menu == "insnack":
+                for food in menu[single_menu]:
+                    today_menu['snack']['Morning Snack'].append(food)     
+            if single_menu == "pksnack":
+                for food in menu[single_menu]:
+                    today_menu['snack']['Package Snack'].append(food)     
+    
+    if meal_type == "lunch":
+        today_menu = {
+            "main": {
+                "Green": [],
+                "Yellow": [],
+                "Orange": [],
+                "Vegetarian": []
+            },
+            "salad": {
+                "Salad": []
+            },
+            "snack": {
+                "Box": [],
+                "Afternoon Snack": []
+
+            }
+        }
+        for single_menu in menu:
+            if single_menu == "green":
+                for food in menu[single_menu]:
+                    today_menu['main']['Green'].append(food)
+            if single_menu == "yellow":
+                for food in menu[single_menu]:
+                    today_menu['main']['Yellow'].append(food)
+            if single_menu == "orange":
+                for food in menu[single_menu]:
+                    today_menu['main']['Orange'].append(food)
+            if single_menu == "veg":
+                for food in menu[single_menu]:
+                    today_menu['main']['Vegetarian'].append(food)
+            if single_menu == "salad":
+                today_menu['salad']['Salad'] = menu[single_menu]
+            if single_menu == "box":
+                for food in menu[single_menu]:
+                    today_menu['snack']['Box'].append(food)
+            if single_menu == "afsnack":
+                for food in menu[single_menu]:
+                    today_menu['snack']['Afternoon Snack'].append(food)
+        
+    if meal_type == "dinner":
+
+        today_menu = {
+            "main": {
+                "Green": [],
+                "Orange": [],
+                "Vegetarian": []
+            },
+            "salad": {
+                "Salad": []
+            }
+        }
+        for single_menu in menu:
+            if single_menu == "green":
+                for food in menu[single_menu]:
+                    today_menu['main']['Green'].append(food)
+            if single_menu == "orange":
+                for food in menu[single_menu]:
+                    today_menu['main']['Orange'].append(food)
+            if single_menu == "veg":
+                for food in menu[single_menu]:
+                    today_menu['main']['Vegetarian'].append(food)
+            if single_menu == "salad":
+                today_menu['salad']['Salad'] = menu[single_menu]
+
     return today_menu
 
 if __name__ == '__main__':
