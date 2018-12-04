@@ -116,24 +116,26 @@ def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
                 "type": "template",
                 "payload": {
                     "template_type": "generic",                    "sharable": "true",
-                    "elements": [{
-                        "buttons": [{
-                        "title": "돌아갈래",
-                        "type": "postback",
-                        "payload": meal_type_
-                        }]
-                    }]
+                    "elements": []
                 }
             }
         }}
     for meal_type in menu_list[menu_type]:
-        element = {"title": "", "subtitle": ""}
+        if len(menu_list[menu_type]) < 2:
+            element = {"title": "", "subtitle": "", "buttons": [{
+                        "title": "돌아갈래",
+                        "type": "postback",
+                        "payload": meal_type_
+                    }]}
+        else:
+            element = {"title": "", "subtitle": ""}
         element['title'] += meal_type
         if not (menu_list[menu_type][meal_type]):
             element['subtitle'] += "제공되지 않음"
         for food in menu_list[menu_type][meal_type]:
             element['subtitle'] += food+" "
         message_data['message']['attachment']['payload']['elements'].append(element)
+ 
     log(message_data)
     return message_data
 
