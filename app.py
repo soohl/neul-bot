@@ -8,7 +8,6 @@ import datetime
 import main.meal as meal
 import re
 
-
 app = Flask(__name__, static_folder=os.path.join(os.getcwd(),'main','static'))
 
 @app.route('/', methods = ['GET'])
@@ -101,7 +100,8 @@ def receive_quick_reply(event):
         send_quick_reply(sender_id, 4, "오늘 저녁 메뉴는...")
     else: # Meal specific
         meal_type = payload.split('_')
-        message_data = build_meal_template(sender_id, meal.return_today_menu(meal_type[0]), meal_type[1], meal_type[0])
+        #meal_type[0]
+        message_data = build_meal_template(sender_id, meal.return_today_menu("breakfast"), meal_type[1], meal_type[0])
         message_json = json.dumps(message_data,ensure_ascii = False).encode("utf-8")
         send_api(message_json)
 
