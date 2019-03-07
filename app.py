@@ -84,27 +84,25 @@ def receive_postback(event):
 
 def receive_quick_reply(event):
     sender_id = event["sender"]["id"]
-    send_message(sender_id, "HI",)
-    # sender_id = event["sender"]["id"]
-    # payload = event["message"]['quick_reply']["payload"]
-    # if (payload == "meal"):
-    #     send_quick_reply(sender_id, 1, "식단을 불러오는 중!")
-    # elif (payload == "help"):
-    #     send_message(sender_id, "건의사항을 담은 메시지 앞에 #를 붙히고 내게 보내줘. 모든 건의사항은 익명으로 전달될거야.")
-    # elif (payload == "breakfast"):
-    #     send_message(sender_id,"오늘은 "+today_day()+"요일!")
-    #     send_quick_reply(sender_id, 2, "오늘 아침 메뉴는...")
-    # elif (payload == "lunch"):
-    #     send_message(sender_id,"오늘은 "+today_day()+"요일!")
-    #     send_quick_reply(sender_id, 3, "오늘 점심 메뉴는...")
-    # elif (payload == "dinner"):
-    #     send_message(sender_id,"오늘은 "+today_day()+"요일!")
-    #     send_quick_reply(sender_id, 4, "오늘 저녁 메뉴는...")
-    # else: # Meal specific
-    #     meal_type = payload.split('_')
-    #     message_data = build_meal_template(sender_id, meal.return_today_menu(meal_type[0]), meal_type[1], meal_type[0])
-    #     message_json = json.dumps(message_data,ensure_ascii = False).encode("utf-8")
-    #     send_api(message_json)
+    payload = event["message"]['quick_reply']["payload"]
+    if (payload == "meal"):
+        send_quick_reply(sender_id, 1, "식단을 불러오는 중!")
+    elif (payload == "help"):
+        send_message(sender_id, "건의사항을 담은 메시지 앞에 #를 붙히고 내게 보내줘. 모든 건의사항은 익명으로 전달될거야.")
+    elif (payload == "breakfast"):
+        send_message(sender_id,"오늘은 "+today_day()+"요일!")
+        send_quick_reply(sender_id, 2, "오늘 아침 메뉴는...")
+    elif (payload == "lunch"):
+        send_message(sender_id,"오늘은 "+today_day()+"요일!")
+        send_quick_reply(sender_id, 3, "오늘 점심 메뉴는...")
+    elif (payload == "dinner"):
+        send_message(sender_id,"오늘은 "+today_day()+"요일!")
+        send_quick_reply(sender_id, 4, "오늘 저녁 메뉴는...")
+    else: # Meal specific
+        meal_type = payload.split('_')
+        message_data = build_meal_template(sender_id, meal.return_today_menu(meal_type[0]), meal_type[1], meal_type[0])
+        message_json = json.dumps(message_data,ensure_ascii = False).encode("utf-8")
+        send_api(message_json)
 
 def build_meal_template(recipient_id, menu_list, menu_type, meal_type_):
     message_data = {
