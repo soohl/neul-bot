@@ -195,7 +195,7 @@ def send_quick_reply(recipient_id, level, greeting):
 def send_api(message_data):
     params = {"access_token": os.environ["PAGE_ACCESS_TOKEN"]}
     headers = {"Content-Type": "application/json"}
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=message_data)
+    r = requests.post("https://graph.facebook.com/v3.2/me/messages", params=params, headers=headers, data=message_data)
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
