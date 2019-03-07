@@ -8,6 +8,7 @@ import datetime
 
 pdf_address = "https://www.nlcsjeju.co.kr/userfiles/nlcsjejumvc/NLCSjeju_menu_3%EC%9B%941%EC%A3%BC%EC%B0%A8.pdf"
 
+
 ################## PARAMETER CONFIG #########################
 green_start = 1;
 green_end = 10;
