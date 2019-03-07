@@ -46,15 +46,16 @@ def webhook():
     return "received", 200
 
 def process_message(event):
-    if event.get("message"):
-        if event['message'].get('quick_reply'):
-            receive_quick_reply(event)
-        else:
-            receive_message(event)
-    elif event.get("postback"):
-        receive_postback(event)
-    else:
-        pass
+    receive_message(event)
+    # if event.get("message"):
+    #     if event['message'].get('quick_reply'):
+    #         receive_quick_reply(event)
+    #     else:
+    #         receive_message(event)
+    # elif event.get("postback"):
+    #     receive_postback(event)
+    # else:
+    #     pass
 
 def receive_message(event):
     sender_id = event["sender"]["id"]
@@ -71,14 +72,14 @@ def receive_postback(event):
     payload = event["postback"]["payload"]
     if (payload == "greeting"): # Initial greeting postback
         send_initial_message(sender_id, "안녕하세요. 늘봇입니다!")
-    # elif (payload == "meal"):
-    #     send_quick_reply(sender_id, 1, "식단을 불러오는 중!")
-    # elif (payload == "breakfast"):
-    #     send_quick_reply(sender_id, 2, "오늘 아침 메뉴는...")
-    # elif (payload == "lunch"):
-    #     send_quick_reply(sender_id, 3, "오늘 점심 메뉴는...")
-    # elif (payload == "dinner"):
-    #     send_quick_reply(sender_id, 4, "오늘 저녁 메뉴는...")
+    elif (payload == "meal"):
+        send_quick_reply(sender_id, 1, "식단을 불러오는 중!")
+    elif (payload == "breakfast"):
+        send_quick_reply(sender_id, 2, "오늘 아침 메뉴는...")
+    elif (payload == "lunch"):
+        send_quick_reply(sender_id, 3, "오늘 점심 메뉴는...")
+    elif (payload == "dinner"):
+        send_quick_reply(sender_id, 4, "오늘 저녁 메뉴는...")
     else:
         send_message(sender_id,"?")
 
