@@ -5,7 +5,58 @@ import re
 import math
 import os
 
-pdf_address = "https://www.nlcsjeju.co.kr/userfiles/nlcsjejumvc/NLCSjeju_menu_12%EC%9B%941%EC%A3%BC%EC%B0%A8.pdf"
+pdf_address = "https://www.nlcsjeju.co.kr/userfiles/nlcsjejumvc/NLCSjeju_menu_3%EC%9B%941%EC%A3%BC%EC%B0%A8.pdf"
+
+################## PARAMETER CONFIG #########################
+green_start = 1;
+green_end = 10;
+
+salad_start = green_end
+salad_end = salad_start + 2
+
+salad2_start = 13
+salad2_end = salad2_start + 2
+
+morning_snack_start = salad2_end #15
+morning_snack_end = morning_snack_start + 1
+
+morning_snack2_start = morning_snack_end # 16
+morning_snack2_end = morning_snack2_start + 1
+
+lunch_start = 1
+lunch_end = lunch_start + 8
+
+yellow_start = lunch_end 
+yellow_end = yellow_start + 3 #12
+
+orange_start = yellow_end
+orange_end = orange_start + 2 #14
+
+vegeterian_start = 16
+vegeterian_end = vegeterian_start + 1 
+
+lunchBox_start = vegeterian_end
+lunchBox_end = lunchBox_start + 1 # 18
+
+saladBar_start = lunchBox_end
+saladBar_end = saladBar_start + 1 # 19
+
+Afternoon_start = saladBar_end
+Afternoon_end = Afternoon_start + 3 #22
+
+greenDinner_start = 1
+greenDinner_end = 9
+
+orangeDinner_start = greenDinner_end
+orangeDinner_end = orangeDinner_start + 3 #12
+
+vegDinner_start = orangeDinner_end
+vegDinner_end = vegDinner_start + 1
+
+saladDinner_start = vegDinner_end
+saladDinner_end = saladDinner_start + 1 #14
+
+################## PARAMETER CONFIG #########################
 
 def breakfast():
     json = read_pdf(pdf_address, output_format="json", pages=2)
@@ -22,7 +73,7 @@ def breakfast():
 
     # Green (from mon, sat)
     unordered = []
-    for x in range(1,10):
+    for x in range(green_start, green_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -41,7 +92,7 @@ def breakfast():
 
     # Salad Bar @1
     unordered = []
-    for x in range(10,12):
+    for x in range(salad_start, salad_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -59,7 +110,7 @@ def breakfast():
 
     # Salad bar @2
     unordered = []
-    for x in range(12,14):
+    for x in range(salad2_start, salad2_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -76,7 +127,7 @@ def breakfast():
 
     # Morning Snack @1
     unordered = []
-    for x in range(14,15):
+    for x in range(morning_snack_start,morning_snack_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -94,7 +145,7 @@ def breakfast():
 
     # Morning Snack @2
     unordered = []
-    for x in range(15,16):
+    for x in range(morning_snack2_start, morning_snack2_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -128,7 +179,7 @@ def lunch():
 
     # Green the bob
     unordered = []
-    for x in range(1,9):
+    for x in range(lunch_start,lunch_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -153,7 +204,7 @@ def lunch():
 
     # Yellow
     unordered = []
-    for x in range(9,12):
+    for x in range(yellow_start,yellow_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -177,7 +228,7 @@ def lunch():
 
     # Orange
     unordered = []
-    for x in range(12,14):
+    for x in range(orange_start, orange_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -197,7 +248,7 @@ def lunch():
 
     # Vegetarian
     unordered = []
-    for x in range(16,17):
+    for x in range(vegeterian_start, vegeterian_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -217,7 +268,7 @@ def lunch():
 
     # Lunch Box
     unordered = []        
-    for x in range(17,18):
+    for x in range(lunchBox_start,lunchBox_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -237,7 +288,7 @@ def lunch():
 
     # Salad Bar
     unordered = []        
-    for x in range(18,19):
+    for x in range(saladBar_start,saladBar_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -292,7 +343,7 @@ def dinner():
 
     # Green the bob
     unordered = []
-    for x in range(1,9):
+    for x in range(greenDinner_start,greenDinner_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -309,7 +360,7 @@ def dinner():
 
     # Orange
     unordered = []
-    for x in range(9,12):
+    for x in range(orangeDinner_start, orangeDinner_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -326,7 +377,7 @@ def dinner():
 
     # Vegetarian
     unordered = []
-    for x in range(12,13):
+    for x in range(vegDinner_start, vegDinner_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -343,7 +394,7 @@ def dinner():
 
     # Salad Bar
     unordered = []
-    for x in range(13,14):
+    for x in range(saladDinner_start, saladDinner_end):
         for element in row[x]:
             if not element['text'] == '':
                 text = element['text'].strip()
@@ -368,8 +419,9 @@ def write_json():
         json.dump(lunch(), outfile, indent=4,ensure_ascii=False)
     with open(os.path.join('./static', 'dinner.json'), 'w') as outfile:
         json.dump(dinner(), outfile, indent=4,ensure_ascii=False)
-    
+
     return True
 
+write_json()
 
 
