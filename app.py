@@ -47,15 +47,16 @@ def webhook():
 
 def process_message(event):
     receive_message(event)
-    # if event.get("message"):
-    #     if event['message'].get('quick_reply'):
-    #         receive_quick_reply(event)
-    #     else:
-    #         receive_message(event)
+    if event.get("message"):
+        receive_message(event)
+        # if event['message'].get('quick_reply'):
+        #     receive_quick_reply(event)
+        # else:
+        #     receive_message(event)
     # elif event.get("postback"):
     #     receive_postback(event)
-    # else:
-    #     pass
+    else:
+        pass
 
 def receive_message(event):
     sender_id = event["sender"]["id"]
