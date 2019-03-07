@@ -4,6 +4,7 @@ import json
 import re
 import math
 import os
+import datetime
 
 pdf_address = "https://www.nlcsjeju.co.kr/userfiles/nlcsjejumvc/NLCSjeju_menu_3%EC%9B%941%EC%A3%BC%EC%B0%A8.pdf"
 
@@ -71,7 +72,7 @@ def breakfast():
         "sun": {"green": [], "salad1": [], "salad2": [], "insnack": [], "pksnack": []}
     }
 
-    # Green (from mon, sat)
+    # GREEN (from mon, sat)
     unordered = []
     for x in range(green_start, green_end):
         for element in row[x]:
@@ -90,7 +91,7 @@ def breakfast():
             menus[list(menus)[index%6]]["green"].append(food)
     menus["sun"]["green"].append("브런치")
 
-    # Salad Bar @1
+    # SALAD Bar @1
     unordered = []
     for x in range(salad_start, salad_end):
         for element in row[x]:
@@ -108,7 +109,7 @@ def breakfast():
             menus[list(menus)[index%6]]["salad1"].append(food)
     menus["sun"]["salad1"].append("브런치")
 
-    # Salad bar @2
+    # SALAD bar @2
     unordered = []
     for x in range(salad2_start, salad2_end):
         for element in row[x]:
@@ -125,7 +126,7 @@ def breakfast():
             if not food == '-' and not food == '':
                 menus[day]["salad2"].append(food)
 
-    # Morning Snack @1
+    # MORNING SNACK @1
     unordered = []
     for x in range(morning_snack_start,morning_snack_end):
         for element in row[x]:
@@ -143,7 +144,7 @@ def breakfast():
         if not food == '' and not food == '-':
             menus[list(menus)[index%6]]["insnack"].append(food)
 
-    # Morning Snack @2
+    # MORNING SNACK @2
     unordered = []
     for x in range(morning_snack2_start, morning_snack2_end):
         for element in row[x]:
@@ -177,7 +178,7 @@ def lunch():
         "sun": {"green": [], "yellow": [], "orange": [], "veg": [], "box": [], "salad": [], "afsnack": []}
     }
 
-    # Green the bob
+    # GREEN the bob
     unordered = []
     for x in range(lunch_start,lunch_end):
         for element in row[x]:
@@ -202,7 +203,7 @@ def lunch():
             else:
                 menus[list(menus)[index%7]]["green"].append(food)
 
-    # Yellow
+    # YELLOW
     unordered = []
     for x in range(yellow_start,yellow_end):
         for element in row[x]:
@@ -226,7 +227,7 @@ def lunch():
             else:
                 menus[list(menus)[index%7]]["yellow"].append(food)
 
-    # Orange
+    # ORANGE
     unordered = []
     for x in range(orange_start, orange_end):
         for element in row[x]:
@@ -246,7 +247,7 @@ def lunch():
             else:
                 menus[list(menus)[index%7]]["orange"].append(food)
 
-    # Vegetarian
+    # VEGETARIAN
     unordered = []
     for x in range(vegeterian_start, vegeterian_end):
         for element in row[x]:
@@ -266,7 +267,7 @@ def lunch():
             else:
                     menus[list(menus)[index%7]]["veg"].append(food)
 
-    # Lunch Box
+    # Lunch BOX
     unordered = []        
     for x in range(lunchBox_start,lunchBox_end):
         for element in row[x]:
@@ -286,7 +287,7 @@ def lunch():
             else:
                 menus[list(menus)[index%7]]["box"].append(food)
 
-    # Salad Bar
+    # SALAD Bar
     unordered = []        
     for x in range(saladBar_start,saladBar_end):
         for element in row[x]:
@@ -308,7 +309,7 @@ def lunch():
             if not unordered[-1] == '' and not unordered[-1] == '-':
                 menus[day]["salad"].append(unordered[-1])
 
-    # Afternoon Snack
+    # AFTERNOON SNACK
     unordered = []        
     for x in range(19,22):
         for element in row[x]:
@@ -341,7 +342,7 @@ def dinner():
         "sun": {"green": [], "orange": [], "veg": [], "salad": []}
     }
 
-    # Green the bob
+    # GREEN the bob
     unordered = []
     for x in range(greenDinner_start,greenDinner_end):
         for element in row[x]:
@@ -358,7 +359,7 @@ def dinner():
         if not food == '' and not food == '-':
             menus[list(menus)[index%7]]["green"].append(food)
 
-    # Orange
+    # ORANGE
     unordered = []
     for x in range(orangeDinner_start, orangeDinner_end):
         for element in row[x]:
@@ -375,7 +376,7 @@ def dinner():
         if not food == '' and not food == '-':
             menus[list(menus)[index%7]]["orange"].append(food)
 
-    # Vegetarian
+    # VEGETARIAN
     unordered = []
     for x in range(vegDinner_start, vegDinner_end):
         for element in row[x]:
@@ -392,7 +393,7 @@ def dinner():
         if not food == '' and not food == '-':
             menus[list(menus)[index%7]]["veg"].append(food)
 
-    # Salad Bar
+    # SALAD Bar
     unordered = []
     for x in range(saladDinner_start, saladDinner_end):
         for element in row[x]:
@@ -413,6 +414,7 @@ def dinner():
     return menus
 
 def write_json():
+<<<<<<< HEAD
     with open(os.path.join('./static', 'breakfast.json'), 'w') as outfile:
         json.dump(breakfast(), outfile, indent=4,ensure_ascii=False)
     with open(os.path.join('./static', 'lunch.json'), 'w') as outfile:
@@ -425,3 +427,129 @@ def write_json():
 write_json()
 
 
+=======
+    with open(os.path.join('static', 'breakfast.json'), 'w') as outfile:
+        json.dump(breakfast(), outfile, indent=4, ensure_ascii=False)
+    with open(os.path.join('static', 'lunch.json'), 'w') as outfile:
+        json.dump(lunch(), outfile, indent=4, nsure_ascii=False)
+    with open(os.path.join('static', 'dinner.json'), 'w') as outfile:
+        json.dump(dinner(), outfile, indent=4, ensure_ascii=False)
+    return True
+
+def today_day():
+    date = datetime.datetime.today()
+    week_day = {
+        0 : "mon",
+        1 : "tue",
+        2 : "wed", 
+        3 : "thu",
+        4 : "fri",
+        5 : "sat", 
+        6 : "sun"
+    }
+    return week_day[date.weekday()]
+
+def return_today_menu(meal_type): # meal_type = Breakfast, lunch, dinner
+    today_menu = {} # menu to be returned.
+    with open(os.path.join(os.getcwd(), 'main', 'static', meal_type +'.json'), 'r') as f:
+        menu = json.load(f)
+        menu = menu[today_day()]
+
+    if meal_type == "breakfast":
+        today_menu = {
+            "main": {
+                "GREEN": []
+            },
+            "salad": {
+                "SPECIAL SALAD": [],
+                "NORMAL SALAD": []
+            },
+            "snack": {
+                "MORNING SNACK": [],
+                "PACKAGE SNACK": []
+            }
+        }
+        for single_menu in menu:
+            if single_menu == "green":
+                for food in menu[single_menu]:
+                    today_menu['main']['GREEN'].append(food)
+            if single_menu == "salad1":
+                for food in menu[single_menu]:
+                    today_menu['salad']['SPECIAL SALAD'].append(food)
+            if single_menu == "salad2":
+                today_menu['salad']['NORMAL SALAD'] = menu[single_menu]
+            if single_menu == "insnack":
+                for food in menu[single_menu]:
+                    today_menu['snack']['MORNING SNACK'].append(food)     
+            if single_menu == "pksnack":
+                for food in menu[single_menu]:
+                    today_menu['snack']['PACKAGE SNACK'].append(food)     
+    
+    if meal_type == "lunch":
+        today_menu = {
+            "main": {
+                "GREEN": [],
+                "YELLOW": [],
+                "ORANGE": [],
+                "VEGETARIAN": []
+            },
+            "salad": {
+                "SALAD": []
+            },
+            "snack": {
+                "BOX": [],
+                "AFTERNOON SNACK": []
+            }
+        }
+        for single_menu in menu:
+            if single_menu == "green":
+                for food in menu[single_menu]:
+                    today_menu['main']['GREEN'].append(food)
+            if single_menu == "yellow":
+                for food in menu[single_menu]:
+                    today_menu['main']['YELLOW'].append(food)
+            if single_menu == "orange":
+                for food in menu[single_menu]:
+                    today_menu['main']['ORANGE'].append(food)
+            if single_menu == "veg":
+                for food in menu[single_menu]:
+                    today_menu['main']['VEGETARIAN'].append(food)
+            if single_menu == "salad":
+                today_menu['salad']['SALAD'] = menu[single_menu]
+            if single_menu == "box":
+                for food in menu[single_menu]:
+                    today_menu['snack']['BOX'].append(food)
+            if single_menu == "afsnack":
+                for food in menu[single_menu]:
+                    today_menu['snack']['AFTERNOON SNACK'].append(food)
+        
+    if meal_type == "dinner":
+
+        today_menu = {
+            "main": {
+                "GREEN": [],
+                "ORANGE": [],
+                "VEGETARIAN": []
+            },
+            "salad": {
+                "SALAD": []
+            }
+        }
+        for single_menu in menu:
+            if single_menu == "green":
+                for food in menu[single_menu]:
+                    today_menu['main']['GREEN'].append(food)
+            if single_menu == "orange":
+                for food in menu[single_menu]:
+                    today_menu['main']['ORANGE'].append(food)
+            if single_menu == "veg":
+                for food in menu[single_menu]:
+                    today_menu['main']['VEGETARIAN'].append(food)
+            if single_menu == "salad":
+                today_menu['salad']['SALAD'] = menu[single_menu]
+
+    return today_menu
+
+if __name__ == '__main__':
+    pass
+>>>>>>> bf082fe068f6bd5e95c01521e3ab7bd9fc4a13e6
