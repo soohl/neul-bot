@@ -8,6 +8,7 @@ import datetime
 
 pdf_address = "https://www.nlcsjeju.co.kr/userfiles/nlcsjejumvc/NLCSjeju_menu_3%EC%9B%941%EC%A3%BC%EC%B0%A8.pdf"
 
+write_json()
 ################## PARAMETER CONFIG #########################
 green_start = 1;
 green_end = 10;
@@ -414,20 +415,6 @@ def dinner():
     return menus
 
 def write_json():
-<<<<<<< HEAD
-    with open(os.path.join('./static', 'breakfast.json'), 'w') as outfile:
-        json.dump(breakfast(), outfile, indent=4,ensure_ascii=False)
-    with open(os.path.join('./static', 'lunch.json'), 'w') as outfile:
-        json.dump(lunch(), outfile, indent=4,ensure_ascii=False)
-    with open(os.path.join('./static', 'dinner.json'), 'w') as outfile:
-        json.dump(dinner(), outfile, indent=4,ensure_ascii=False)
-
-    return True
-
-write_json()
-
-
-=======
     with open(os.path.join('static', 'breakfast.json'), 'w') as outfile:
         json.dump(breakfast(), outfile, indent=4, ensure_ascii=False)
     with open(os.path.join('static', 'lunch.json'), 'w') as outfile:
@@ -552,4 +539,4 @@ def return_today_menu(meal_type): # meal_type = Breakfast, lunch, dinner
 
 if __name__ == '__main__':
     pass
->>>>>>> bf082fe068f6bd5e95c01521e3ab7bd9fc4a13e6
+
