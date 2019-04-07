@@ -66,7 +66,6 @@ def receive_message(event):
         send_message(sender_id, "📡 건의사항 접수완료!")
     elif(message_text[0] == "라" and message_text[1] == "떼"):
         send_message(sender_id, "🎉 Happy Birthday Mate! 🎉")
-        time.sleep(5000)
         send_message(sender_id, os.environ["BIRTHDAY"])
     #send_message(sender_id, message_text)
     send_initial_message(sender_id, "🚧 현재 늘봇의 재개발이 진행중이며 식단, 건의 기능만 사용 가능합니다. 🚧")
