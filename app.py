@@ -65,7 +65,7 @@ def receive_message(event):
         send_message(1650937528284127, "건의사항: "+ message_text)
         send_message(sender_id, "📡 건의사항 접수완료!")
     elif(message_text[0] == "라" and message_text[1] == "떼"):
-        send_message(sender_id, "Happy Birthday Mate!")
+        send_message(sender_id, "🎉 Happy Birthday Mate! 🎉")
         time.sleep(5000)
         send_message(sender_id, os.environ["BIRTHDAY"])
     #send_message(sender_id, message_text)
