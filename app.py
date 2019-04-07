@@ -68,7 +68,7 @@ def receive_message(event):
         send_message(sender_id, "🎉 Happy Birthday Mate! 🎉")
         send_message(sender_id, os.environ["BIRTHDAY"])
     #send_message(sender_id, message_text)
-    send_initial_message(sender_id, "🚧 현재 늘봇의 재개발이 진행중이며 식단, 건의 기능만 사용 가능합니다. 🚧")
+    send_initial_message(sender_id, "🚧 ㅎㅇ 🚧")
 
 def receive_postback(event):
     sender_id = event["sender"]["id"]
