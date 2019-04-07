@@ -76,8 +76,6 @@ def receive_postback(event):
     payload = event["postback"]["payload"]
     if (payload == "greeting"): # Initial greeting postback
         send_initial_message(sender_id, "안녕하세요. 늘봇입니다!")
-    elif (payload == "present"):
-        send_message(sender_id, "산소?")
     elif (payload == "meal"):
         send_quick_reply(sender_id, 1, "식단을 불러오는 중!")
     elif (payload == "breakfast"):
@@ -105,6 +103,8 @@ def receive_quick_reply(event):
     elif (payload == "dinner"):
         send_message(sender_id,"오늘은 "+today_day()+"요일!")
         send_quick_reply(sender_id, 4, "오늘 저녁 메뉴는...")
+    elif (payload == "present"):
+        send_message(sender_id, "산소?")
     else: # Meal specific
         meal_type = payload.split('_')
         message_data = build_meal_template(sender_id, meal.return_today_menu(meal_type[0]), meal_type[1], meal_type[0])
