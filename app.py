@@ -6,6 +6,7 @@ import requests
 from flask import Flask, request, render_template, send_from_directory
 import datetime
 import main.meal as meal
+import time
 import re
 
 app = Flask(__name__, static_folder=os.path.join(os.getcwd(),'main','static'))
@@ -63,6 +64,10 @@ def receive_message(event):
     if (message_text[0] == '#'):
         send_message(1650937528284127, "건의사항: "+ message_text)
         send_message(sender_id, "📡 건의사항 접수완료!")
+    elif(message_text[0] == "라" and message_text[1] == "떼"):
+        send_message(sender_id, "Happy Birthday Mate!")
+        time.sleep(5000)
+        send_message(sender_id, os.environ["BIRTHDAY"])
     #send_message(sender_id, message_text)
     send_initial_message(sender_id, "🚧 현재 늘봇의 재개발이 진행중이며 식단, 건의 기능만 사용 가능합니다. 🚧")
 
@@ -71,6 +76,8 @@ def receive_postback(event):
     payload = event["postback"]["payload"]
     if (payload == "greeting"): # Initial greeting postback
         send_initial_message(sender_id, "안녕하세요. 늘봇입니다!")
+    elif (payload == "present"):
+        send_message(sender_id, "O2?");
     elif (payload == "meal"):
         send_quick_reply(sender_id, 1, "식단을 불러오는 중!")
     elif (payload == "breakfast"):
@@ -169,7 +176,7 @@ def send_initial_message(recipient_id, greeting):
 
 def send_quick_reply(recipient_id, level, greeting):
     level_dic = {
-        0 : [["🍴식단", "meal"], ["📡건의", "help"]],
+        0 : [["🎁선물", "present"], ["🍴식단", "meal"], ["📡건의", "help"]],
         1 : [["🍳아침", "breakfast"], ["🍱점심", "lunch"], ["🥘저녁", "dinner"]],
         2 : [["🍲메인", "breakfast_main"], ["🥗샐러드", "breakfast_salad"], ["🌮스낵", "breakfast_snack"], ["돌아갈래", "meal"]],
         3 : [["🍲메인", "lunch_main"], ["🥗샐러드", "lunch_salad"], ["🌮스낵", "lunch_snack"], ["돌아갈래", "meal"]],
